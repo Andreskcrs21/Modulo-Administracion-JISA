@@ -1,0 +1,49 @@
+{% extends 'login/base.html' %}
+{% block titulo %} Inicio {% endblock titulo%}
+
+{% block buscador %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+<form class="form-inline my-2 my-lg-0" method="GET">
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Buscar" name="buscar" value="{{ request.GET.buscar }}">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+</nav>
+{% endblock buscador%}
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+          {% for m in entity %}
+  
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem; margin-top: 5%;">
+              <img class="card-img-top" src="{{m.Foto.url}}" alt="Card image cap" style="width: 285px; height: 200px;">
+              <div class="card-body">
+                <h5 class="card-title">{{m.Marca}} {{m.Modelo}}</h5>
+                <p class="card-text">${{m.Precio}}</p>
+                <div class="card-action center">
+                  <a href="{% url 'autos:editar_moto' m.id %}" class="btn btn-primary">Editar</a>
+                  <a href="{% url 'autos:eliminar_moto' m.id %}" class="btn btn-primary">Eliminar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+        <div style="margin-top: 5%;">
+          {% include 'carros/paginator.html' %}
+        </div>
+    </div>
+
+
+
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems, options);
+});
+</script>
+
+{% endblock contenido %}

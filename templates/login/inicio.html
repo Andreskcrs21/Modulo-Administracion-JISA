@@ -1,0 +1,63 @@
+{% extends 'login/base.html' %}
+{% block titulo %} Inicio {% endblock titulo%}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="jumbotron">
+      <div class="carousel slide" id="demo-carousel" data-ride="carousel" style="margin-top: 5%;" >
+        <div class="carousel-inner" role="listbox" >
+          {% for a in autos %}
+            {% if forloop.first %}
+              <div class="carousel-item active" >
+            {% else %}
+              <div class="carousel-item" >
+            {% endif %}
+              {% if a.Foto %}
+                <img class="col d-flex justify-content-center" src='{{ a.Foto.url }}' alt=""  style="width: 50%; height: 45%; margin: auto;">
+              {% endif %}
+                <div class="carousel-caption">
+                  <p>{{ a.Marca }} {{ a.Modelo }}</p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+    <div class="carousel slide" id="moto" data-ride="carousel" style="margin-top: 5%; " >
+      <div class="carousel-inner" role="listbox" >
+        {% for m in motos %}
+          {% if forloop.first %}
+            <div class="carousel-item active" >
+          {% else %}
+            <div class="carousel-item" >
+          {% endif %}
+            {% if m.Foto %}
+              <img class="col d-flex justify-content-center" src='{{ m.Foto.url }}' alt=""  style="width: 50%; height: 45%; margin: auto; border: 50px;">
+            {% endif %}
+              <div class="carousel-caption">
+                <p>{{ m.Marca }} {{ m.Modelo }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+$('.carousel').carousel({
+  interval: 100
+})
+
+</script>
+  
+  
+{% endblock contenido %}

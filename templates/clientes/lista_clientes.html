@@ -1,0 +1,56 @@
+{% extends 'login/base.html' %}
+{% block titulo %} Registro {% endblock titulo%}
+{% block buscador %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+<form class="form-inline my-2 my-lg-0" method="GET">
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Buscar" name="buscar" value="{{ request.GET.buscar }}">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+</nav>
+{% endblock buscador%}
+{% block contenido %}
+<div class="container mt-4">
+    <div class="jumbotron">
+    <h1 style="text-align: center;">Lista de Clientes</h1>
+    <a  href="{% url 'clientes:registrar_clientes' %}" class="btn-floating btn-large waves-effect waves-light blue" style="margin-left: 2%;"><i class="material-icons">add</i></a>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Fecha Nacimiento</th>
+                    <th scope="col">Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for cli in entity %}
+    
+                  <tr>
+                    <td>{{cli.Cedula}}</td>    
+                    <td>{{cli.Nombres}}</td>    
+                    <td>{{cli.Apellidos}}</td>    
+                    <td>{{cli.Direccion}}</td>    
+                    <td>{{cli.Telefono}}</td>    
+                    <td>{{cli.Correo}}</td>    
+                    <td>{{cli.Fecha_Nacimiento}}</td>    
+                
+                    <td><a href="{% url 'clientes:editar_cliente' cli.id %}" class="btn btn-success" style="width: 70px; height: 35px; text-align:right; padding: 0 10px;">Editar</a>    <a href="{% url 'clientes:eliminar_cliente' cli.id %}" class="btn btn-success" style="width: 70px; height: 35px; text-align: center; padding: 0 2.5px;">Eliminar</a></td>
+    
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+              <div style="margin-top: 5%;">
+                {% include 'carros/paginator.html' %}
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

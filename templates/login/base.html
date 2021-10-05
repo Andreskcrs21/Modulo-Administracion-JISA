@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Import Google Icon Font-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>{% block titulo %} Inicio {% endblock titulo%}</title>
+
+   
+      
+</head>
+
+
+<body class="bg-dark text-black m-0">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+    <a class="navbar-brand" href="{% url 'inicio' %}">JISA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Clientes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'clientes:registrar_clientes' %}">Registrar cliente</a>
+            <a class="dropdown-item" href="{% url 'clientes:lista_clientes' %}">Lista de clientes</a>
+          </div> 
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Autos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'autos:registro_autos' %}">Registrar Auto</a>
+            <a class="dropdown-item" href="{% url 'autos:lista_autos' %}">Lista de Autos</a>
+          </div> 
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Motos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'autos:registro_motos' %}">Registrar Moto</a>
+            <a class="dropdown-item" href="{% url 'autos:lista_motos' %}">Lista de Motos</a>
+          </div> 
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0%;">
+            {{ user.username}} <i class="material-icons right">account_circle</i>  
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
+          </div> 
+        </li>
+      </ul>
+      {% else %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="dropdown-item center" href="{% url 'login' %}">Iniciar Sesión</a>
+        
+        </li>
+        <li class="nav-item dropdown">
+          <a class="dropdown-item center" href="{% url 'inicio:registro' %}">Registrarse</a>
+
+        </li>
+      </ul>
+      {% endif%}
+      {% block buscador %}
+      {% endblock buscador%}
+    </div>
+  </div>
+  </nav>
+   
+   
+  <!-- <nav style="background-color: #0d47a1">
+      <div class="nav-wrapper container">
+        <a href="#" class="brand-logo" >JISA</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'inicio:inicio' %}">Inicio</a></li>
+          <!-- <li><a href="{% url 'inicio:inicio' %}">Registrar Clientes</a></li> 
+          <li><a href="" class="dropdown-trigger" data-target="des_cliente">Clientes<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="des_cliente" class="dropdown-content">
+              <li><a href="{% url 'clientes:registrar_clientes' %}">Registrar</a></li>
+              <li><a href="{% url 'clientes:lista_clientes' %}">Lista</a></li>  
+            </ul>
+          </li>
+          <li><a href="" class="dropdown-trigger" data-target="des_autos">Autos<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="des_autos" class="dropdown-content">
+              <li><a href="{% url 'autos:registro_autos' %}">Ingresar Autos</a></li>
+              <li><a href="{% url 'autos:lista_autos' %}">Lista Autos</a></li>  
+            </ul>
+          </li>
+          <li><a href="" class="dropdown-trigger" data-target="des_moto">Motos<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="des_moto" class="dropdown-content">
+              <li><a href="{% url 'autos:registro_motos' %}">Ingresar Moto</a></li>
+              <li><a href="{% url 'autos:lista_motos' %}">Lista Motos</a></li>  
+            </ul>
+          </li>
+          <li><a href="" class="dropdown-trigger" data-target="des_sesion">{{ user.username}}<i class="material-icons right">account_circle</i></a>
+            <ul id="des_sesion" class="dropdown-content">             
+            <li><a href="{% url 'inicio:logout' %}">Cerrar Sesion</a></li>                
+            </ul>
+          </li>
+          
+          {% else %}
+          <li><a href="{% url 'login' %}">Iniciar Sesion</a></li>
+          <li><a href="{% url 'inicio:registro' %}">Registrarse</a></li>
+          {% endif%}
+        </ul>
+      </div>
+    </nav> -->
+    {% block contenido %}
+    {% endblock contenido %}
+
+<!-- Compiled and minified JavaScript -->
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ <script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    // var elems = document.querySelectorAll('.sidenav');
+    // var instances = M.Sidenav.init(elems);
+    M.AutoInit();
+  });
+    
+  </script>
+
+
+            
+</body>
+</html>

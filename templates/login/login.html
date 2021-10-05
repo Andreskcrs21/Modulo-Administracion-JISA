@@ -1,0 +1,35 @@
+{% extends 'login/base.html' %}
+{% block titulo %} Iniciar Sesión {% endblock titulo%}
+
+{% block contenido %}
+{% load crispy_forms_tags %}  
+<body>
+  <div class="container text-center pt-4">
+    <div class='jumbotron'>
+      <h1>Usuario</h1>
+      <center>
+        
+          <div class="text-left" style="max-width:700px">
+            <form method="POST" class="mt-2"  enctype="multipart/form-data">
+              {% csrf_token %}
+              {{form|crispy}}    
+              <div class="form-gruop mx-auto text-center">
+                <button class="btn btn-primary btn-lg" type="submit">Ingresar</button><br>
+              <div style="margin-top: 2%;">
+                ¿No tienes cuenta aun? <a href="{% url 'inicio:registro' %}" style="padding-bottom: 25%;">Registrarse</a>
+              </div>
+                
+              </div>
+              <br>
+            </form>
+          </div> 
+        
+      </div>
+    </center>
+  </div>
+</div>
+
+
+
+
+{% endblock contenido %}
